@@ -1,0 +1,16 @@
+.product-card {
+    background: inherit;
+}
+
+.product-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+}
+
+.product-image {
+    max-width: 25ex;
+    max-height: 25ex;
+    margin-bottom: 2ex;
+}
