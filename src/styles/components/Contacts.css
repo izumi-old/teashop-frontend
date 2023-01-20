@@ -1,0 +1,27 @@
+#contacts-container{
+    height: 90vh;
+}
+#contacts-body{
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+#contacts-header{
+    margin: 30px;
+}
+.text-body{
+    font-size: large;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.body-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.item-header{
+    margin: 30px;
+}

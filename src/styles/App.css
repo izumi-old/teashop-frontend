@@ -46,13 +46,13 @@
 #header {
   width: 100%;
   min-height: 10vh;
+  background-color: #8ab22e;
   display: flex;
   flex-direction: row;
 }
 
 #logo-container {
   width: 15%;
-  background-color: yellow; /*TODO: DEBUG!*/
   align-content: center;
 }
 
@@ -62,7 +62,6 @@
 
 #menu {
   width: 85%;
-  background-color: red; /*TODO: DEBUG!*/
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -80,12 +79,40 @@
 
 #body {
   width: 100%;
-  min-height: 70vh;
-  background-color: pink; /*TODO: DEBUG!*/
+  min-height: 90vh;
+  background-color: #e6eee3; /*TODO: DEBUG!*/
+  padding-top: 1ex;
 }
 
-#footer {
-  width: 100%;
-  min-height: 20vh;
-  background-color: orange; /*TODO: DEBUG!*/
+#image-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  margin-right: 6ex;
+}
+
+.image-button {
+  margin-left: 1ex;
+  margin-right: 1ex;
+}
+
+.image-button__image {
+  max-height: 6ex;
+}
+
+.image-button__button {
+  border-width: 0;
+  background-color: #8ab22e;
+}
+
+.show {
+  display: block;
+  transition: 800ms;
+  opacity: 1;
+}
+
+.show.active {
+  transform: translateY(100px) scale(0) rotateY(180deg);
+  opacity: 0;
 }

@@ -1,19 +1,21 @@
 import axios from "axios";
 import {API_PASSWORD, API_USERNAME, OAUTH_URL} from "../App";
 import userService from "./user.service";
+import logger from "../utils/Logger";
 
 class AuthService {
-    updateTokenIfExpired(username, password) {
-        if (this.isTokenExpired()) {
-            return
+    updateTokenIfExpired(username, password): Promise {
+        if (!this.isTokenExpired()) {
+            return new Promise(() => {
+                return 1;
+            });
         }
 
-        axios.post(OAUTH_URL, "", {
+        let url = OAUTH_URL + "?grant_type=password&username=" + username + "&password=" + password
+        logger.debug("Going to authorize. The url: " + url)
+        return axios.post(url, "", {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "grant_type": "password",
-                "username": username,
-                "password": password
             },
             auth: {
                 username: API_USERNAME,
@@ -21,44 +23,47 @@ class AuthService {
             }
         })
         .then(response => {
-            let token = response.headers.authorization;
-            let expiresAt = new Date().getMilliseconds() + response.headers.get("expires_in")
-            localStorage.setItem("token", token);
+            let expiresAt = new Date().getTime() + Number(response.data["expires_in"])
+            localStorage.setItem("token", response.data["access_token"]);
             localStorage.setItem("expiresAt", expiresAt)
             localStorage.setItem("username", username)
             localStorage.setItem("password", password)
         })
     }
 
-    login(username, password) {
-        this.updateTokenIfExpired(username, password)
-        let token = localStorage.getItem("token")
-        if (!token) {
-            return;
-        }
-
-        let user = userService.getByUsername(username)
-        localStorage.setItem("currentUser", JSON.stringify(user))
+    login(username, password): Promise {
+        return this.updateTokenIfExpired(username, password)
+            .then(() => {
+                return userService.getByUsername(username).then(response => {
+                    localStorage.setItem("currentUser", JSON.stringify(response.data[0]))
+                });
+            });
     }
 
     logout() {
         localStorage.removeItem("token");
-        localStorage.removeItem("expiresAt")
+        localStorage.removeItem("expiresAt");
         localStorage.removeItem("currentUser");
+        localStorage.removeItem("username");
+        localStorage.removeItem("password");
     }
 
-    isTokenExpired() {
-        let expiredAt = Number(localStorage.getItem("expiresAt"))
-        return expiredAt && new Date().getMilliseconds() < expiredAt
+    isTokenExpired(): Boolean {
+        let expiresAt = localStorage.getItem("expiresAt");
+        if (expiresAt === undefined || expiresAt === null) {
+            return true;
+        }
+
+        return new Date().getTime() > Number(expiresAt)
     }
 
     getCurrentUser() {
         return JSON.parse(localStorage.getItem("currentUser"));
     }
 
-    isAuthenticated() {
+    isAuthenticated(): Boolean {
         let username = localStorage.getItem("username");
-        if (!username) {
+        if (username === undefined || username === null) {
             return false;
         }
 

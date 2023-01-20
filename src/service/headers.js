@@ -1,16 +1,7 @@
-import authService from "./auth.service";
-
 export default function authHeader() {
-    const username = localStorage.getItem("username")
-    const password = localStorage.getItem("password")
-    if (username) {
-        authService.updateTokenIfExpired(username, password)
-    }
-
     const token = localStorage.getItem("token");
-
-    if (token) {
-        return { Authorization: token };
+    if (token !== undefined && token !== null) {
+        return { Authorization: `Bearer ${token}` };
     } else {
         return {};
     }

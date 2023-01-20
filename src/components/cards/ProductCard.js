@@ -16,7 +16,7 @@ class ProductCard extends Component {
         return (
             <Card className={"product-card"}>
                 <Card.Body>
-                    <Card.Img className={"product-image"} src={product.images[0].url} alt={product.name}/>
+                    <Card.Img className={"product-image"} src={product.images[0].url} alt={product.name} />
                     <Card.Title>{product.name}</Card.Title>
                     <Card.Text>₽{product.price}</Card.Text>
                 </Card.Body>

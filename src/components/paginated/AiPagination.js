@@ -120,7 +120,7 @@ class AiPagination extends Component {
     changePage(pageNumber) {
         logger.debug("\n====\nChanging page, page number: " + pageNumber);
         this.gettingFunction(pageNumber - 1, this.itemsPageSize).then(response => {
-            logger.debug("Got a response, response: " + JSON.stringify(response));
+            logger.debug("Got a response");
 
             let pages = [];
             for (let i = 1; i < response.totalPages+1; i++) {

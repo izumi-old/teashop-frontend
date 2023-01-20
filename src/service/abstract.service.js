@@ -4,8 +4,17 @@ import {BACKEND_URL} from "../App";
 import authService from "./auth.service";
 import logger from "../utils/Logger";
 import PaginationResponse from "../entity/PaginationResponse";
+import {AxiosResponse} from "axios";
 
 class AbstractService {
+    post(url, data): Promise<AxiosResponse> {
+        if (authService.isAuthenticated()) {
+            return axios.post(url, data, { headers: authHeader() });
+        } else {
+            return axios.post(url, data);
+        }
+    }
+
     getAll(entityName) {
         return this.formGetRequest(BACKEND_URL + "/rest/entities/" + entityName)
             .then(response => {
