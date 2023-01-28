@@ -97,7 +97,7 @@ class BucketComponent extends Component {
                 <Button variant={"dark"} disabled>Оформить</Button> }
             { (!this.bucket.isEmpty() && authService.isAuthenticated()) &&
                 <Button variant={"primary"} onClick={() => this.drawUp()}>Оформить</Button> }
-            <ToastContainer/>
+            <ToastContainer position={"bottom-right"} autoClose={"2000"}/>
             { this.renderItems() }
         </div>;
     }

@@ -17,7 +17,7 @@ class Profile extends Component {
     }
 
     uploadOrders(): Promise {
-        return orderService.getAll().then(response => {
+        return orderService.getAllByUsername().then(response => {
             this.setState({
                 orders: response.data
             });
@@ -54,7 +54,7 @@ class Profile extends Component {
                 </div>
             </div>
 
-            <ToastContainer/>
+            <ToastContainer position={"bottom-right"} autoClose={"2000"}/>
 
             { this.renderOrders() }
         </div>;

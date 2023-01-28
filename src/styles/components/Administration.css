@@ -1,0 +1,37 @@
+.administration-tab-sheet__container-buttons {
+    margin-top: 2ex;
+    margin-bottom: 2ex;
+}
+
+.administration-tab-sheet__container-buttons button {
+    margin-right: 2ex;
+}
+
+.user-management__users-container {
+    width: 50%;
+    margin-left: 25%;
+    margin-bottom: 2ex;
+    padding-top: 1ex;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    border: 1px solid black;
+}
+
+.user-management__users-info {
+    margin-left: 2ex;
+    margin-right: 4ex;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: start;
+}
+
+.user-management__users-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

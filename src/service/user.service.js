@@ -9,7 +9,13 @@ class UserService {
         return abstractService.postAnonymous(url, { username: username, password: password })
     }
 
+    getAll(): Promise<AxiosResponse> {
+        return abstractService.getAnonymous(BACKEND_URL + "/rest/entities/u");
+    }
 
+    delete(username): Promise<AxiosResponse> {
+        return abstractService.getAnonymous(BACKEND_URL + "/rest/entities/u/delete?username=" + username);
+    }
 }
 
 export default new UserService();

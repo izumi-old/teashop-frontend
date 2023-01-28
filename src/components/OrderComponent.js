@@ -14,12 +14,12 @@ const OrderComponent = (props) => {
 
     return (
         <div>
-            <ToastContainer/>
+            <ToastContainer position={"bottom-right"} autoClose={"2000"}/>
             <div className={"order-details__buttons-panel"}>
                 <Button onClick={() => navigate("/profile")}>Перейти в профиль</Button>
                 { order.status === "GOING" && <Button variant={"danger"}
-                                                      onClick={() => cancel(order, navigate)}>Отменить</Button> }
-                { order.status !== "GOING" && <Button variant={"dark"} disabled>Отменить</Button> }
+                                                      onClick={() => cancel(order, navigate)}>Отменить заказ</Button> }
+                { order.status !== "GOING" && <Button variant={"dark"} disabled>Отменить заказ</Button> }
             </div>
             <div className={"order-container__short-info order-details"}>
                 <b>Заказ №{order.id}</b>

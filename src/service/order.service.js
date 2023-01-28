@@ -12,6 +12,10 @@ class OrderService {
     }
 
     getAll(): Promise<AxiosResponse> {
+        return abstractService.getAnonymous(BACKEND_URL + "/orders");
+    }
+
+    getAllByUsername(): Promise<AxiosResponse> {
         return abstractService.getAnonymous(BACKEND_URL + "/orders?username=" + authService.getCurrentUser().username);
     }
 
