@@ -54,7 +54,7 @@ class Profile extends Component {
                 </div>
             </div>
 
-            <ToastContainer position={"bottom-right"} autoClose={"2000"}/>
+            <ToastContainer position={"bottom-right"} autoClose={"5000"}/>
 
             { this.renderOrders() }
         </div>;
@@ -82,9 +82,7 @@ class Profile extends Component {
                         Детали
                     </Link>
 
-                    { order.status === "GOING" && <Button variant={"danger"}
-                                                     onClick={() => this.cancel(order)}>Отменить</Button> }
-                    { order.status !== "GOING" && <Button variant={"dark"} disabled>Отменить</Button> }
+                    <Button variant={"danger"} onClick={() => this.cancel(order)}>Отменить</Button>
                 </div>
             </div>
         </div>;

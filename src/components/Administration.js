@@ -43,7 +43,7 @@ class Administration extends Component {
 
     render() {
         return <div className={"administration-tab-sheet__container"}>
-            <ToastContainer position={"bottom-right"} autoClose={"2000"}/>
+            <ToastContainer position={"bottom-right"} autoClose={"5000"}/>
 
             <div className={"administration-tab-sheet__container-buttons"}>
                 <Button onClick={() => this.setState({
@@ -92,9 +92,7 @@ class Administration extends Component {
                     <span>Общая стоимость - ₽{orderService.countCost(order)}</span>
                 </div>
                 <div className={"order-container__buttons"}>
-                    { order.status === "GOING" && <Button variant={"danger"}
-                                                          onClick={() => this.cancel(order)}>Отменить</Button> }
-                    { order.status !== "GOING" && <Button variant={"dark"} disabled>Отменить</Button> }
+                    <Button variant={"danger"} onClick={() => this.cancel(order)}>Отменить</Button>
                 </div>
             </div>
         </div>;
