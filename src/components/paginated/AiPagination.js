@@ -144,18 +144,7 @@ class AiPagination extends Component {
         return items;
     }
 
-    /*
-    return (
-    <>
-      { isGoal ? <MadeGoal/> : <MissedGoal/> }
-    </>
-    );
-     */
-
-    withNextAndPrevious() { //TODO: register in constructor
-    }
-
-    withoutNextAndPrevious() { //TODO: register in constructor
+    withoutNextAndPrevious() {
         return (
             <Container>
                 <Pagination className={"d-flex justify-content-center"}>
@@ -185,20 +174,6 @@ class AiPagination extends Component {
                 {this.renderingContainer(this.getSortedItems())}
             </Container>
         );
-    }
-
-    withLeftDots() { //TODO: register in constructor
-
-    }
-
-    withoutLeftDots() { //TODO: register in constructor
-
-    }
-
-    withRightDots() { //TODO: register in constructor
-    }
-
-    withoutRightDots() { //TODO: register in constructor
     }
 
     renderControl() {

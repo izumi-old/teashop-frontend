@@ -1,0 +1,41 @@
+#product-body {
+    width: 100%;
+    margin-top: 2ex;
+    margin-bottom: 2ex;
+
+    display: flex;
+    flex-direction: row;
+}
+
+#product-filter {
+    width: 18%;
+    border-right: 1px solid black;
+}
+
+#product-place {
+    width: 78%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.products-tiles {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 5ex;
+}
+
+#collection-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.collection-item:hover {
+    color: #706e6c;
+}
+
+#filter-price {
+    display: flex;
+    justify-content: center;
+    margin-left: 3ex;
+    margin-right: 3ex;
+}

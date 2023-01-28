@@ -80,7 +80,7 @@
 #body {
   width: 100%;
   min-height: 90vh;
-  background-color: #e6eee3; /*TODO: DEBUG!*/
+  background-color: #e6eee3;
   padding-top: 1ex;
 }
 
@@ -101,9 +101,29 @@
   max-height: 6ex;
 }
 
+.image-button__image-span {
+  position: relative;
+  right: 2ex;
+  top: 3ex;
+  z-index: 20;
+  color: red;
+  background-color: white;
+  height: 3ex;
+  width: 3ex;
+  border-radius: 50%;
+}
+
 .image-button__button {
   border-width: 0;
   background-color: #8ab22e;
+  z-index: 50;
+}
+
+.image-button__button.spanned {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-right: -3ex;
 }
 
 .show {

@@ -1,0 +1,40 @@
+.cart-popup-content {
+    background-color: white;
+    border: 3px solid black;
+}
+
+#cart-popup-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1ex;
+}
+
+.cart-image {
+    max-height: 25ex;
+    max-width: 25ex;
+}
+
+#cart-popup-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2ex;
+}
+
+#cart-popup-info form {
+    margin-bottom: 0;
+}
+
+#cart-popup-info #product-card-close-btn {
+    margin: 0;
+    max-width: 50%;
+}
+
+.confirm-button {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.total-count {
+    margin-top: 1em;
+}

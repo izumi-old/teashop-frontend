@@ -1,60 +1,54 @@
-import axios from "axios";
-import {API_PASSWORD, API_USERNAME, OAUTH_URL} from "../App";
+import {BACKEND_URL} from "../App";
 import userService from "./user.service";
-import logger from "../utils/Logger";
+import {AxiosResponse} from "axios";
+import abstractService from "./abstract.service";
+import Objects from "./objects";
+import Bucket from "../bucket/Bucket";
 
 class AuthService {
-    updateTokenIfExpired(username, password): Promise {
-        if (!this.isTokenExpired()) {
-            return new Promise(() => {
-                return 1;
+    login(username, password): Promise {
+        return abstractService.postAnonymous(
+            BACKEND_URL + "/rest/entities/u/login",
+            { username: username, password: password }
+        ).then((response) => {
+            localStorage.setItem("currentUser", JSON.stringify(response.data));
+            localStorage.setItem("username", username);
+        }).then(() => {
+            return abstractService.getAnonymous(BACKEND_URL + "/roles?username=" + username).then(response => {
+                let roles = response.data;
+                localStorage.setItem("roles", JSON.stringify(roles));
             });
-        }
-
-        let url = OAUTH_URL + "?grant_type=password&username=" + username + "&password=" + password
-        logger.debug("Going to authorize. The url: " + url)
-        return axios.post(url, "", {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            auth: {
-                username: API_USERNAME,
-                password: API_PASSWORD
-            }
-        })
-        .then(response => {
-            let expiresAt = new Date().getTime() + Number(response.data["expires_in"])
-            localStorage.setItem("token", response.data["access_token"]);
-            localStorage.setItem("expiresAt", expiresAt)
-            localStorage.setItem("username", username)
-            localStorage.setItem("password", password)
-        })
+        });
     }
 
-    login(username, password): Promise {
-        return this.updateTokenIfExpired(username, password)
-            .then(() => {
-                return userService.getByUsername(username).then(response => {
-                    localStorage.setItem("currentUser", JSON.stringify(response.data[0]))
-                });
-            });
+    isAdmin(): Boolean {
+        if (!Objects.isCorrect(localStorage.getItem("roles"))) {
+            return false;
+        }
+
+        let roles = JSON.parse(localStorage.getItem("roles"));
+
+        for (let i = 0; i < roles.length; i++) {
+            let role = roles[i];
+            if (Objects.isCorrect(role.roleCode) && role.roleCode === "system-full-access") {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    register(username, password): Promise<AxiosResponse> {
+        return userService.save(username, password)
+            .then(response => this.login(username, password));
     }
 
     logout() {
-        localStorage.removeItem("token");
-        localStorage.removeItem("expiresAt");
         localStorage.removeItem("currentUser");
         localStorage.removeItem("username");
-        localStorage.removeItem("password");
-    }
+        localStorage.removeItem("roles");
 
-    isTokenExpired(): Boolean {
-        let expiresAt = localStorage.getItem("expiresAt");
-        if (expiresAt === undefined || expiresAt === null) {
-            return true;
-        }
-
-        return new Date().getTime() > Number(expiresAt)
+        Bucket.create();
     }
 
     getCurrentUser() {
@@ -62,12 +56,7 @@ class AuthService {
     }
 
     isAuthenticated(): Boolean {
-        let username = localStorage.getItem("username");
-        if (username === undefined || username === null) {
-            return false;
-        }
-
-        return !this.isTokenExpired();
+        return Objects.isCorrect(localStorage.getItem("username"));
     }
 }
 

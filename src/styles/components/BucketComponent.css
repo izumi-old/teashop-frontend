@@ -1,0 +1,37 @@
+.bucket-items-container {
+    width: 50%;
+    margin-left: 25%;
+    margin-bottom: 2ex;
+    margin-top: 2ex
+}
+
+.bucket-item-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+
+    border: 1px solid black;
+    padding: 2ex;
+    border-radius: 4ex;
+    margin-top: 1ex;
+}
+
+.bucket-item-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 1ex;
+    padding-left: 1ex;
+    padding-right: 1ex;
+}
+
+.bucket-item-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bucket-item-buttons button {
+    margin-bottom: 1ex;
+    margin-left: 1ex;
+}

@@ -77,7 +77,7 @@ class Logger {
             return message;
         }
 
-        return message; //TODO: take %s into account
+        return message;
     }
 }
 

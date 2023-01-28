@@ -9,9 +9,9 @@ import {AxiosResponse} from "axios";
 class AbstractService {
     post(url, data): Promise<AxiosResponse> {
         if (authService.isAuthenticated()) {
-            return axios.post(url, data, { headers: authHeader() });
+            return this.postAuthenticated(url, data);
         } else {
-            return axios.post(url, data);
+            return this.postAnonymous(url, data);
         }
     }
 
@@ -62,20 +62,28 @@ class AbstractService {
 
     formGetRequest(url): Promise {
         if (authService.isAuthenticated()) {
-            logger.debug("(Authenticated request) " + url);
             return this.getAuthenticated(url);
         } else {
-            logger.debug("(Anonymous request) " + url);
             return this.getAnonymous(url);
         }
     }
 
     getAnonymous(url): Promise {
+        logger.debug("(Anonymous request) " + url);
         return axios.get(url);
     }
 
     getAuthenticated(url): Promise {
+        logger.debug("(Authenticated request) " + url);
         return axios.get(url, { headers: authHeader() })
+    }
+
+    postAnonymous(url, data): Promise<AxiosResponse> {
+        return axios.post(url, data);
+    }
+
+    postAuthenticated(url, data): Promise<AxiosResponse> {
+        return axios.post(url, data, { headers: authHeader() });
     }
 }
 

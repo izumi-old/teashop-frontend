@@ -1,6 +1,7 @@
 .product-card {
     background: inherit;
-    padding: 0;
+    padding: 1ex 0 1ex;
+    border-radius: 10ex;
 }
 
 .product-card .card-body {
